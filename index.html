@@ -31,6 +31,16 @@
         #suggestions div:hover {
             background: #f0f0f0;
         }
+        #result img {
+            max-width: 200px;
+            margin-top: 10px;
+        }
+        #result a {
+            display: block;
+            margin-top: 10px;
+            color: blue;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -84,7 +94,7 @@
             suggestionsDiv.innerHTML = '';
             suggestionsDiv.style.display = 'none';
 
-            if (input.length > 0) {
+            if (input.length > 0 && searchType === 'Supplier Code') {
                 const matches = csvData.filter(row => row[searchType] && row[searchType].toLowerCase().includes(input));
 
                 if (matches.length > 0) {
@@ -112,17 +122,28 @@
                 return;
             }
 
-            const result = csvData.find(row => row[searchType] && row[searchType].toLowerCase() === searchTerm);
+            if (searchType === 'Supplier Code') {
+                const result = csvData.find(row => row[searchType] && row[searchType].toLowerCase() === searchTerm);
 
-            const resultDiv = document.getElementById('result');
-            if (result) {
-                resultDiv.innerHTML = `
-                    <p><strong>Item Code:</strong> ${result['Item Code']}</p>
-                    <p><strong>Description:</strong> ${result['Description']}</p>
-                    <p><strong>Default Location:</strong> ${result['Default Location']}</p>
-                `;
+                const resultDiv = document.getElementById('result');
+                if (result) {
+                    const itemCode = result['Item Code'];
+                    const description = result['Description'];
+                    const defaultLocation = result['Default Location'];
+                    const trimmedLocation = defaultLocation.length > 2 ? defaultLocation.substring(2) : defaultLocation;
+                    const searchUrl = `https://brightsky.com.au/att-product-number/${encodeURIComponent(itemCode)}/`;
+
+                    resultDiv.innerHTML = `
+                        <p><strong>Item Code:</strong> ${itemCode}</p>
+                        <p><strong>Description:</strong> ${description}</p>
+                        <p><strong>Default Location:</strong> ${trimmedLocation}</p>
+                        <a href="${searchUrl}" target="_blank">View product on BrightSky</a>
+                    `;
+                } else {
+                    resultDiv.innerHTML = '<p>No results found for the given search term.</p>';
+                }
             } else {
-                resultDiv.innerHTML = '<p>No results found for the given search term.</p>';
+                alert('Please select "Supplier Code" to search by item code.');
             }
         }
 
