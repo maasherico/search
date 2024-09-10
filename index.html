@@ -136,14 +136,14 @@
             const resultDiv = document.getElementById('result');
             const previewFrame = document.getElementById('preview');
             if (result) {
-                const itemCode = result['Item Code'];
-                const supplierCode = result['Supplier Code'];
-                const description = result['Description'];
-                const defaultLocation = result['Default Location'];
+                const itemCode = result['Item No.'];
+                const supplierCode = result['S CODE'];
+                const description = result['Item Description'];
+                const defaultLocation = result['Default Bin Location'];
                 const trimmedLocation = defaultLocation.length > 2 ? defaultLocation.substring(2) : defaultLocation;
                 const searchUrl = `https://brightsky.com.au/att-product-number/${encodeURIComponent(itemCode)}/`;
 
-                resultDiv.innerHTML = `
+                resultDiv.innerHTML = ` 
                     <p><strong>Supplier Code:</strong> ${supplierCode}</p>
                     <p><strong>Item Code:</strong> ${itemCode}</p>
                     <p><strong>Description:</strong> ${description}</p>
