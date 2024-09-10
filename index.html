@@ -47,6 +47,7 @@
     <h1>Search Supplier Data</h1>
     <select id="searchType">
         <option value="Supplier Code">Supplier Code</option>
+        <option value="Item Code">Item Code</option>
         <option value="Description">Description</option>
         <option value="Default Location">Location</option>
     </select>
@@ -94,7 +95,7 @@
             suggestionsDiv.innerHTML = '';
             suggestionsDiv.style.display = 'none';
 
-            if (input.length > 0 && searchType === 'Supplier Code') {
+            if (input.length > 0) {
                 const matches = csvData.filter(row => row[searchType] && row[searchType].toLowerCase().includes(input));
 
                 if (matches.length > 0) {
@@ -122,7 +123,7 @@
                 return;
             }
 
-            if (searchType === 'Supplier Code') {
+            if (searchType === 'Supplier Code' || searchType === 'Item Code') {
                 const result = csvData.find(row => row[searchType] && row[searchType].toLowerCase() === searchTerm);
 
                 const resultDiv = document.getElementById('result');
@@ -143,7 +144,7 @@
                     resultDiv.innerHTML = '<p>No results found for the given search term.</p>';
                 }
             } else {
-                alert('Please select "Supplier Code" to search by item code.');
+                alert('Please select "Supplier Code" or "Item Code" to search.');
             }
         }
 
