@@ -53,10 +53,10 @@
 <body>
     <h1>Search Supplier Data</h1>
     <select id="searchType">
-        <option value="Supplier Code">Supplier Code</option>
-        <option value="Item Code">Item Code</option>
-        <option value="Description">Description</option>
-        <option value="Default Location">Location</option>
+        <option value="S CODE">Supplier Code</option>
+        <option value="Item No.">Item Code</option>
+        <option value="Item Description">Description</option>
+        <option value="Default Bin Location">Location</option>
     </select>
     <input type="text" id="searchInput" placeholder="Enter search term" oninput="showSuggestions()">
     <div id="suggestions"></div>
@@ -66,7 +66,7 @@
 
     <script>
         // CSV URL from your Google Sheets
-        const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vShJf083IYD8Wi-9jwzYX7OKheaZIAIhjS9MZyqxgLfKi5rxRBaPyBm-EgdMqF2oKKp25iZTkafgyBr/pub?output=csv';
+        const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSFkXKHsBq_US37N3XRp-s4xFo-IyZtBmhuJxWxxHo82IU3dNnewkrm9HDaE_36EJ2fT86yy23q3kU1/pub?output=csv';
 
         let csvData = [];
 
