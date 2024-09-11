@@ -151,7 +151,7 @@
                     const description = result['Item Description'];
                     const defaultLocation = result['Default Bin Location'];
                     const trimmedLocation = defaultLocation.length > 2 ? defaultLocation.substring(2) : defaultLocation;
-                    const searchUrl = searchType === 'Default Bin Location' ? `https://brightsky.com.au/att-product-number/${encodeURIComponent(itemCode)}/` : '';
+                    const searchUrl = `https://brightsky.com.au/att-product-number/${encodeURIComponent(itemCode)}/`;
 
                     return `
                         <div>
@@ -159,18 +159,15 @@
                             <p><strong>Item Code:</strong> ${itemCode}</p>
                             <p><strong>Description:</strong> ${description}</p>
                             <p><strong>Default Location:</strong> ${trimmedLocation}</p>
-                            ${searchType === 'Default Bin Location' ? `<a href="${searchUrl}" target="_blank">View More Details</a>` : ''}
+                            <a href="${searchUrl}" target="_blank">View More Details</a>
                         </div>
                         <hr>
                     `;
                 }).join('');
 
-                if (searchType === 'Default Bin Location') {
-                    previewFrame.style.display = 'block';
-                    previewFrame.src = results[0] ? `https://brightsky.com.au/att-product-number/${encodeURIComponent(results[0]['Item No.'])}/` : '';
-                } else {
-                    previewFrame.style.display = 'none';
-                }
+                // Always display the preview frame and update its source
+                previewFrame.style.display = 'block';
+                previewFrame.src = `https://brightsky.com.au/att-product-number/${encodeURIComponent(results[0]['Item No.'])}/`;
             } else {
                 resultDiv.innerHTML = '<p>No results found for the given search term.</p>';
                 previewFrame.style.display = 'none';
